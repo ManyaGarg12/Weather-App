@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="weather.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<script src="jquery.js"></script>
+<body>
+    <div class="container">
+    <div class="card">
+        <h2><ion-icon name="location-outline"></ion-icon> <span id="location"></span></h2>
+        <h5 id="weather"></h5>
+        <h4 id="tempe"><span id="temp"></span><sup>o</sup>C</h4>
+        <h5 id="humid"></h5>
+       <img src="" id="icon">
+       <button onclick="window.location.reload()" class="refresh"><ion-icon name="refresh-outline"></ion-icon></button>
+    </div>
+    </div>
+</body>
+<script>
+    link = "https://api.openweathermap.org/data/2.5/weather?q=Vellore&appid=188825f17a47e21558da3a4032f80f56";
+    var request = new XMLHttpRequest();
+    request.open('GET',link,true);
+    request.onload = function()
+    {
+        var obj = JSON.parse(this.response);
+        console.log(obj);
+        document.getElementById("location").innerHTML= obj.name;
+        document.getElementById("weather").innerHTML= obj.weather[0].description;
+        document.getElementById("temp").innerHTML= Math.round(obj.main.temp-273.15);
+        document.getElementById("humid").innerHTML= "Humidity rate : "+" "+ obj.main.humidity;
+        document.getElementById("weather").innerHTML= obj.weather[0].description;
+        document.getElementById("icon").src="https://openweathermap.org/img/w/"+ obj.weather[0].icon+".png";
+ }
+    if(request.status>=200 && request.status<400)
+    {
+      var temp = obj.main.temp;
+    }
+    else{
+        console.log("The city is not available")
+    }
+    request.send();
+</script>
+</html>
